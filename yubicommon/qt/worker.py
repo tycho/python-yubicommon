@@ -26,7 +26,7 @@
 
 from __future__ import absolute_import
 
-from PyQt5 import QtGui, QtCore, QtWidgets
+from PyQt5 import QtCore, QtWidgets
 from functools import partial
 from os import getenv
 from .utils import connect_once, get_active_window, default_messages
