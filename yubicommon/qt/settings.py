@@ -26,7 +26,7 @@
 
 from __future__ import absolute_import
 
-from PySide import QtCore
+from PyQt5 import QtCore
 from collections import MutableMapping
 
 __all__ = ['Settings', 'PySettings', 'convert_to']

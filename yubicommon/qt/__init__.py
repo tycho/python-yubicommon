@@ -29,7 +29,7 @@
 
 from __future__ import absolute_import
 
-from PySide import QtGui
+from PyQt5 import QtGui
 import sys
 import traceback
 

@@ -26,7 +26,7 @@
 
 from __future__ import absolute_import
 
-from PySide import QtCore, QtGui
+from PyQt5 import QtCore, QtGui, QtWidgets
 from functools import wraps
 from inspect import getargspec
 
@@ -71,12 +71,12 @@ def get_text(*args, **kwargs):
 
 
 def get_active_window():
-    active_win = QtGui.QApplication.activeWindow()
+    active_win = QtWidgets.QApplication.activeWindow()
     if active_win is not None:
         return active_win
 
-    wins = [w for w in QtGui.QApplication.topLevelWidgets()
-            if isinstance(w, QtGui.QDialog) and w.isVisible()]
+    wins = [w for w in QtWidgets.QApplication.topLevelWidgets()
+            if isinstance(w, QtWidgets.QDialog) and w.isVisible()]
 
     if not wins:
         return QtCore.QCoreApplication.instance().window

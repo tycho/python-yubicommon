@@ -26,7 +26,7 @@
 
 from __future__ import absolute_import
 
-from PySide import QtGui, QtCore
+from PyQt5 import QtGui, QtCore, QtWidgets
 from functools import partial
 from os import getenv
 from .utils import connect_once, get_active_window, default_messages
@@ -50,8 +50,8 @@ class _Event(QtCore.QEvent):
 
 
 class Worker(QtCore.QObject):
-    _work_signal = QtCore.Signal(tuple)
-    _work_done_0 = QtCore.Signal()
+    _work_signal = QtCore.pyqtSignal(tuple)
+    _work_done_0 = QtCore.pyqtSignal()
 
     @default_messages(_Messages)
     def __init__(self, window, m):
@@ -64,7 +64,7 @@ class Worker(QtCore.QObject):
         self.work_thread.start()
 
     def post(self, title, fn, callback=None, return_errors=False):
-        busy = QtGui.QProgressDialog(title, None, 0, 0, get_active_window())
+        busy = QtWidgets.QProgressDialog(title, None, 0, 0, get_active_window())
         busy.setWindowTitle(self.m.wait)
         busy.setWindowModality(QtCore.Qt.WindowModal)
         busy.setMinimumDuration(0)
@@ -83,9 +83,9 @@ class Worker(QtCore.QObject):
         if isinstance(fn, tuple):
             fn = partial(fn[0], *fn[1:])
         event = _Event(fn)
-        QtGui.QApplication.postEvent(self.window, event)
+        QtWidgets.QApplication.postEvent(self.window, event)
 
-    @QtCore.Slot(tuple)
+    @QtCore.pyqtSlot(tuple)
     def work(self, job):
         QtCore.QThread.msleep(10)  # Needed to yield
         (fn, callback, return_errors) = job
@@ -99,5 +99,5 @@ class Worker(QtCore.QObject):
                 def callback(e): raise e
         if callback:
             event = _Event(partial(callback, result))
-            QtGui.QApplication.postEvent(self.window, event)
+            QtWidgets.QApplication.postEvent(self.window, event)
         self._work_done_0.emit()

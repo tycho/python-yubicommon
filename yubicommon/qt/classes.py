@@ -26,7 +26,7 @@
 
 from __future__ import absolute_import
 
-from PySide import QtGui, QtCore
+from PyQt5 import QtCore, QtWidgets
 from .worker import Worker
 import os
 import sys
@@ -39,7 +39,7 @@ TOP_SECTION = '<b>%s</b>'
 SECTION = '<br><b>%s</b>'
 
 
-class Dialog(QtGui.QDialog):
+class Dialog(QtWidgets.QDialog):
 
     def __init__(self, *args, **kwargs):
         super(Dialog, self).__init__(*args, **kwargs)
@@ -66,10 +66,10 @@ class _Headers(object):
             section = TOP_SECTION % title
         else:
             section = SECTION % title
-        return QtGui.QLabel(section)
+        return QtWidgets.QLabel(section)
 
 
-class _MainWindow(QtGui.QMainWindow):
+class _MainWindow(QtWidgets.QMainWindow):
 
     def __init__(self):
         super(_MainWindow, self).__init__()
@@ -86,7 +86,7 @@ class _MainWindow(QtGui.QMainWindow):
         event.accept()
 
 
-class Application(QtGui.QApplication):
+class Application(QtWidgets.QApplication):
     _quit = False
 
     def __init__(self, m=None, version=None):
@@ -139,7 +139,7 @@ class Application(QtGui.QApplication):
     def ensure_singleton(self, name=None):
         if not name:
             name = self.applicationName()
-        from PySide import QtNetwork
+        from PyQt5 import QtNetwork
         self._l_socket = QtNetwork.QLocalSocket()
         self._l_socket.connectToServer(name, QtCore.QIODevice.WriteOnly)
         if self._l_socket.waitForConnected():
