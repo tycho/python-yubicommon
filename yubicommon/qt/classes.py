@@ -33,7 +33,7 @@ import sys
 import importlib
 from .. import compat
 
-__all__ = ['Application', 'Dialog', 'MutexLocker']
+__all__ = ['Application', 'Dialog']
 
 TOP_SECTION = '<b>%s</b>'
 SECTION = '<br><b>%s</b>'
@@ -175,32 +175,3 @@ class Application(QtWidgets.QApplication):
             status = 0
         self._stop()
         return status
-
-
-class MutexLocker(object):
-
-    """Drop-in replacement for QMutexLocker that can start unlocked."""
-
-    def __init__(self, mutex, lock=True):
-        self._mutex = mutex
-        self._locked = False
-        if lock:
-            self.relock()
-
-    def lock(self, try_lock=False):
-        if try_lock:
-            self._locked = self._mutex.tryLock()
-        else:
-            self._mutex.lock()
-            self._locked = True
-        return self._locked and self or None
-
-    def relock(self):
-        self.lock()
-
-    def unlock(self):
-        if self._locked:
-            self._mutex.unlock()
-
-    def __del__(self):
-        self.unlock()
