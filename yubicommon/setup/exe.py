@@ -69,7 +69,7 @@ class executable(Command):
 
         spec = tempfile.NamedTemporaryFile(suffix='.spec', delete=False)
         source = os.path.join(os.path.dirname(__file__), 'pyinstaller_spec.py')
-        with open(source) as f:
+        with open(source, 'rb') as f:
             spec.write(f.read())
         spec_name = spec.name
         spec.close()
