@@ -57,11 +57,9 @@ VSVersionInfo(
 )"""
 
 data = json.loads(os.environ['pyinstaller_data'])
-try:
+if sys.version_info < (3, 0):
     data = dict((k, v.encode('ascii') if getattr(v, 'encode', None) else v)
-                for k, v in data.items())
-except NameError:
-    pass  # Python 3, encode not needed.
+		for k, v in data.items())
 dist = pkg_resources.get_distribution(data['name'])
 
 DEBUG = bool(data['debug'])
