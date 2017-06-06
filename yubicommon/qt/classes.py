@@ -73,6 +73,9 @@ class _MainWindow(QtWidgets.QMainWindow):
 
     def __init__(self):
         super(_MainWindow, self).__init__()
+        if sys.platform == 'darwin':
+            self.setWindowFlags(self.windowFlags() &
+                ~QtCore.Qt.WindowFullscreenButtonHint)
         self._widget = None
 
     def hide(self):
