@@ -144,7 +144,7 @@ for (a, a_name, a_name_ext), pyz in zip(merge, pyzs):
               name=a_name_ext,
               debug=DEBUG,
               strip=None,
-              upx=True,
+              upx=False,
               console=DEBUG or a_name in console_scripts,
               append_pkg=not OSX,
               version=VERSION,
@@ -166,7 +166,7 @@ collect.append([(os.path.basename(fn), fn, 'DATA') for fn in data['data_files']]
 # DLLs, dylibs and executables should go here.
 collect.append([(fn[4:], fn, 'BINARY') for fn in glob('lib/*')])
 
-coll = COLLECT(*collect, strip=None, upx=True, name=NAME)
+coll = COLLECT(*collect, strip=None, upx=False, name=NAME)
 
 # Write package version for app to display
 pversion_fn = os.path.join('dist', NAME, 'package_version.txt')
