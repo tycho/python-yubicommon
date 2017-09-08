@@ -66,9 +66,8 @@ def get_args(cls, dist, header=None):
             # ensure_safe_name
             if re.search(r'[\\/]', name):
                 raise ValueError("Path separators not allowed in script names")
-            script_text = TEMPLATE.format(
-                          ep.module_name, ep.attrs[0], '.'.join(ep.attrs),
-                          spec, group, name)
+            script_text = TEMPLATE.format(ep.module_name, ep.attrs[0],
+                    '.'.join(ep.attrs), spec, group, name)
             args = cls._get_script_args(type_, name, header, script_text)
             for res in args:
                 yield res
@@ -94,17 +93,15 @@ def main():
         with open(manifest_path, 'a+') as manifest:
             manifest.seek(0)
             manifest_content = manifest.read()
-            if not 'include fastentrypoints.py' in manifest_content:
-                manifest.write(('\n' if manifest_content else '')
-                               + 'include fastentrypoints.py')
+            if 'include fastentrypoints.py' not in manifest_content:
+                manifest.write(('\n' if manifest_content else '') +
+                               'include fastentrypoints.py')
 
         # Insert the import statement to setup.py if not present
         with open(setup_path, 'a+') as setup:
             setup.seek(0)
             setup_content = setup.read()
-            if not 'import fastentrypoints' in setup_content:
+            if 'import fastentrypoints' not in setup_content:
                 setup.seek(0)
                 setup.truncate()
                 setup.write('import fastentrypoints\n' + setup_content)
-
-print(__name__)

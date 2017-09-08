@@ -32,7 +32,7 @@ from distutils import log
 from distutils.errors import DistutilsSetupError
 from datetime import date
 from glob import glob
-from . import fastentrypoints
+from . import fastentrypoints # noqa: ignore=F401
 import os
 import re
 
