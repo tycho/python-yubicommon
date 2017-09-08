@@ -32,6 +32,7 @@ from distutils import log
 from distutils.errors import DistutilsSetupError
 from datetime import date
 from glob import glob
+from . import fastentrypoints
 import os
 import re
 
