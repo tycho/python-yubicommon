@@ -131,7 +131,7 @@ class Application(QtWidgets.QApplication):
         try:
             with open(pversion_fn, 'r') as f:
                 pversion = int(f.read().strip())
-        except:
+        except:  # noqa: E722
             pversion = 0
 
         if pversion > 0:
