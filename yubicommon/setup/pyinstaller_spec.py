@@ -184,16 +184,6 @@ if OSX:
                     'NSHighResolutionCapable': 'True'
                     })
 
-    qt_conf = 'dist/%s.app/Contents/Resources/qt.conf' % NAME
-    qt_conf_dir = os.path.dirname(qt_conf)
-    try:
-        os.makedirs(qt_conf_dir)
-    except OSError as e:
-        if not (e.errno == errno.EEXIST and os.path.isdir(qt_conf_dir)):
-            raise
-    with open(qt_conf, 'w') as f:
-        f.write('[Path]\nPlugins = plugins')
-
 # Create Windows installer
 if WIN:
     installer_cfg = 'resources/win-installer.nsi'
