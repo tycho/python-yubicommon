@@ -178,7 +178,11 @@ if OSX:
     app = BUNDLE(coll,
                  name="%s.app" % NAME,
                  version=ver_str,
-                 icon=ICON)
+                 icon=ICON,
+                 info_plist={
+                    'NSPrincipalClass': 'NSApplication',
+                    'NSHighResolutionCapable': 'True'
+                    })
 
     qt_conf = 'dist/%s.app/Contents/Resources/qt.conf' % NAME
     qt_conf_dir = os.path.dirname(qt_conf)
