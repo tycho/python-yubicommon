@@ -189,7 +189,7 @@ class release(Command):
             raise DistutilsSetupError("Incorrect date/version in NEWS!")
 
     def _verify_tag(self):
-        if os.system('git tag | grep -q "^%s\$"' % self.fullname) == 0:
+        if os.system(r'git tag | grep -q "^%s\$"' % self.fullname) == 0:
             raise DistutilsSetupError(
                 "Tag '%s' already exists!" % self.fullname)
 

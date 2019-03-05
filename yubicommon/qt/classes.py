@@ -110,7 +110,7 @@ class Application(QtWidgets.QApplication):
     def event(self, event):
         if sys.platform == "darwin" and event.type() \
                 == QtCore.QEvent.ApplicationActivate:
-                self.window.show()
+            self.window.show()
         return super(Application, self).event(event)
 
     def _determine_basedir(self):

@@ -94,18 +94,17 @@ def is_minimized(window):
 
 
 class _SignalConnector(QtCore.QObject):
+    _instances = set()
 
-        _instances = set()
+    def __init__(self, signal, slot):
+        super(_SignalConnector, self).__init__()
 
-        def __init__(self, signal, slot):
-            super(_SignalConnector, self).__init__()
+        self.signal = signal
+        self.slot = slot
+        self._instances.add(self)
+        self.signal.connect(self.wrappedSlot)
 
-            self.signal = signal
-            self.slot = slot
-            self._instances.add(self)
-            self.signal.connect(self.wrappedSlot)
-
-        def wrappedSlot(self, *args, **kwargs):
-            self._instances.discard(self)
-            self.signal.disconnect(self.wrappedSlot)
-            self.slot(*args, **kwargs)
+    def wrappedSlot(self, *args, **kwargs):
+        self._instances.discard(self)
+        self.signal.disconnect(self.wrappedSlot)
+        self.slot(*args, **kwargs)
