@@ -11,10 +11,11 @@ import sys
 import json
 import errno
 import pkg_resources
+from datetime import datetime
 from glob import glob
 
 
-VS_VERSION_INFO = """
+VS_VERSION_INFO = r"""
 VSVersionInfo(
   ffi=FixedFileInfo(
     # filevers and prodvers should be always a tuple with four
@@ -47,7 +48,7 @@ VSVersionInfo(
         [StringStruct(u'FileDescription', u'%(name)s'),
         StringStruct(u'FileVersion', u'%(ver_str)s'),
         StringStruct(u'InternalName', u'%(internal_name)s'),
-        StringStruct(u'LegalCopyright', u'Copyright © 2015 Yubico'),
+        StringStruct(u'LegalCopyright', u'Copyright \xa9 2015 Yubico, 2017-%(year)s Uplink Laboratories LLC'),
         StringStruct(u'OriginalFilename', u'%(exe_name)s'),
         StringStruct(u'ProductName', u'%(name)s'),
         StringStruct(u'ProductVersion', u'%(ver_str)s')])
@@ -131,7 +132,8 @@ if WIN:
             'internal_name': data['name'],
             'ver_tup': ver_tup,
             'ver_str': ver_str,
-            'exe_name': data['name'] + file_ext
+            'exe_name': data['name'] + file_ext,
+            'year': datetime.now().strftime('%Y'),
         })
 
 pyzs = [PYZ(m[0].pure) for m in merge]
