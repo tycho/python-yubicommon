@@ -79,7 +79,7 @@ elif OSX:
     icon_ext = 'icns'
 else:
     icon_ext = 'png'
-ICON = os.path.join('resources', '%s.%s' % (data['name'], icon_ext))
+ICON = os.path.join(os.getcwd(), 'resources', '%s.%s' % (data['name'], icon_ext))
 
 if not os.path.isfile(ICON):
     ICON = None
@@ -107,7 +107,7 @@ MERGE(*merge)
 # Read version information on Windows.
 VERSION = None
 if WIN:
-    VERSION = 'build/file_version_info.txt'
+    VERSION = os.path.join(os.getcwd(), 'build', 'file_version_info.txt')
 
     global int_or_zero  # Needed due to how this script is invoked
 
