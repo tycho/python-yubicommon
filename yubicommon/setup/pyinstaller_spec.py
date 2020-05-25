@@ -153,7 +153,7 @@ for (a, a_name, a_name_ext), pyz in zip(merge, pyzs):
 
     # Sign the executable
     if WIN:
-        os.system("signtool.exe sign /fd SHA256 /t http://timestamp.verisign.com/scripts/timstamp.dll \"%s\"" %
+        os.system("signtool.exe sign /a /fd SHA256 /td SHA256 /tr http://timestamp.comodoca.com \"%s\"" %
                 (exe.name))
 
 collect = []
@@ -190,6 +190,6 @@ if WIN:
     if os.path.isfile(installer_cfg):
         os.system('makensis.exe -D"VERSION=%s" %s' % (ver_str, installer_cfg))
         installer = "dist/%s-%s-win.exe" % (data['name'], ver_str)
-        os.system("signtool.exe sign /fd SHA256 /t http://timestamp.verisign.com/scripts/timstamp.dll \"%s\"" %
+        os.system("signtool.exe sign /a /fd SHA256 /td SHA256 /tr http://timestamp.comodoca.com \"%s\"" %
                  (installer))
         print("Installer created: %s" % installer)
