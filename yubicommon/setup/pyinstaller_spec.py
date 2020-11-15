@@ -194,6 +194,7 @@ if OSX:
                     'NSPrincipalClass': 'NSApplication',
                     'NSHighResolutionCapable': True,
                     'LSBackgroundOnly': False,
+                    'NSRequiresAquaSystemAppearance': False,
                     })
 
 # Create Windows installer
