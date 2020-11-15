@@ -192,7 +192,7 @@ if OSX:
                  icon=ICON,
                  info_plist={
                     'NSPrincipalClass': 'NSApplication',
-                    'NSHighResolutionCapable': 'True',
+                    'NSHighResolutionCapable': True,
                     'LSBackgroundOnly': False,
                     })
 
