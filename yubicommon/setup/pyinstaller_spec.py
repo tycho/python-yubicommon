@@ -14,6 +14,7 @@ import pkg_resources
 from datetime import datetime
 from glob import glob
 
+sys.modules['FixTk'] = None
 
 VS_VERSION_INFO = r"""
 VSVersionInfo(
@@ -97,7 +98,15 @@ for ep in list(gui_scripts.values()) + list(console_scripts.values()):
         fh.write("import %s\n" % ep.module_name)
         fh.write("%s.%s()\n" % (ep.module_name, '.'.join(ep.attrs)))
     merge.append(
-        (Analysis([script_path], [dist.location], None, None, None, None),
+        (Analysis(
+            scripts=[script_path],
+            pathex=[dist.location],
+            binaries=None,
+            datas=None,
+            hiddenimports=None,
+            hookspath=None,
+            excludes=['FixTk', 'tcl', 'tk', '_tkinter', 'tkinter', 'Tkinter']
+            ),
          ep.name, ep.name + file_ext)
     )
 
